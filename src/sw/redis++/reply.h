@@ -126,6 +126,8 @@ void to_array(redisReply &reply, Output output);
 // Rewrite set reply to bool type
 void rewrite_set_reply(redisReply &reply);
 
+bool parse_set_reply(redisReply &reply);
+
 // Some command might return an empty array reply as a nil reply,
 // e.g. georadius, zpopmin, zpopmax. In this case, we rewrite the
 // reply to a nil reply.

@@ -122,6 +122,19 @@ void rewrite_set_reply(redisReply &reply) {
     reply.integer = 1;
 }
 
+bool parse_set_reply(redisReply &reply) {
+    if (is_nil(reply)) {
+        // Failed to set, and make it a FALSE reply.
+        return false;
+    }
+
+    // Check if it's a "OK" status reply.
+    reply::parse<void>(reply);
+
+    // Make it a TRUE reply.
+    return true;
+}
+
 void rewrite_empty_array_reply(redisReply &reply) {
     if (is_array(reply) && reply.elements == 0) {
         // Make it a nil reply.
